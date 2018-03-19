@@ -5,14 +5,14 @@ class DmozSpider(scrapy.Spider):
     name = "homePage"
     download_delay = 1
     start_urls = [
-        # 'http://www.julive.com/project/s'
-        # 'http://sh.julive.com/project/s'
-        # 'http://tj.julive.com/project/s'
-        # 'http://gz.julive.com/project/s'
-        # 'http://cq.julive.com/project/s'
-        'http://su.julive.com/project/s'
-        # 'http://hz.julive.com/project/s'
-        # 'http://cd.julive.com/project/s'
+        'http://www.julive.com/project/s',
+        'http://sh.julive.com/project/s',
+        'http://tj.julive.com/project/s',
+        'http://gz.julive.com/project/s',
+        'http://cq.julive.com/project/s',
+        'http://su.julive.com/project/s',
+        'http://hz.julive.com/project/s',
+        'http://cd.julive.com/project/s'
     ]
 
     def parse(self, response):
@@ -33,6 +33,7 @@ class DmozSpider(scrapy.Spider):
                 if len(newPosition) == 2:
                     position = self.getSet(url)[1]
             yield {
+            '城市名称':response.xpath(".//div[@class='header header-juli']/div[@class='inn']/div[@class='city-position city-tip']/span[@class='text']/text()").extract(),
             '小区名称':  house.xpath(".//h4/a[@class='name project-card-item']/text()").extract(),
             '销售状态' : house.xpath(".//h4/a[@class='tag-sale project-card-item']/text()").extract(),
             '位置' : position,
